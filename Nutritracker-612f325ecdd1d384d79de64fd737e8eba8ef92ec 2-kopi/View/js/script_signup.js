@@ -1,5 +1,5 @@
 async function saveNewUser() {
-   
+    
     try {
         // Henter brugeroplysninger fra formularfelter
         const firstname = document.getElementById('firstname').value;
@@ -35,7 +35,7 @@ async function saveNewUser() {
             }
 
             // Håndtere respons og gemmer brugerens ID i localStorage
-            const userData = await saveResponse.json(); 
+            const userData = await saveResponse.json();
             console.log(userData);
             const callsign = 'userID'
             const userID = userData.userID.userID;

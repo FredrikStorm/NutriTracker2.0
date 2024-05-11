@@ -29,7 +29,7 @@ const createUser = async (userData) => {
     sqlRequest.input('password', sql.VarChar, userData.password);
 
     const result = await sqlRequest.query(sqlQuery);
-    return result.recordset[0];  // Assuming userID is returned after INSERT
+    return result.recordset[0];  
 };
 
 const findProfileByEmail = async (email) => {
@@ -61,7 +61,7 @@ const deleteUserProfile = async (userID) => {
     let sqlRequest = new sql.Request(pool);
     sqlRequest.input('userID', sql.Int, userID);
 
-    // Assuming cascade deletes or handling related data elsewhere in your app
+    
     await sqlRequest.query(`DELETE FROM [user].profile WHERE userID = @userID;`);
 };
 
