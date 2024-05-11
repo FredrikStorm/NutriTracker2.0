@@ -1,4 +1,5 @@
 async function saveNewUser() {
+   
     try {
         // Henter brugeroplysninger fra formularfelter
         const firstname = document.getElementById('firstname').value;
@@ -16,7 +17,7 @@ async function saveNewUser() {
         // Kontrollerer om der allerede findes en bruger med samme mail
         const emailSearchResponse = await fetch(`http://localhost:3000/api/user/profile?email=${email}`);
         if (emailSearchResponse.ok) {
-            // Hvis brugeren allerede findes bliver kommer denne besked op og man får at vide man skal lave en bruger
+            // Hvis brugeren allerede findes bliver kommer denne besked op og man får vide man skal lave en bruger
             alert("Finnes allerede en bruker under dette brukernavnet, vennligst logg inn med din eksisterende bruker");
             window.location.replace('login.html');
             return;
