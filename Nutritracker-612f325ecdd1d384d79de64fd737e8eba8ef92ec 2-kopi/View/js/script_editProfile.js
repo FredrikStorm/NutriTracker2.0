@@ -82,7 +82,7 @@ async function deleteProfile() {
     })
         .then(response => {
             if (response.ok) {
-                window.location.replace('frontPage.html');
+                window.location.replace('login.html');
                 localStorage.removeItem('userID'); // Fjerner bruger-ID fra lokal lagring
                 return response.json();
             } else {
@@ -98,5 +98,5 @@ async function deleteProfile() {
 // Funktion til at logge bruger ud og fjerne bruger-ID fra lokal lagring
 function logOut() {
     localStorage.removeItem('userID');
-    window.location.replace('frontPage.html');
+    window.location.replace('login.html');
 };
