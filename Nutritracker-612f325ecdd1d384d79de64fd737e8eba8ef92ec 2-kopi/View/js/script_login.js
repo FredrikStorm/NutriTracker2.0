@@ -13,7 +13,7 @@ async function login() {
                 //sjekker om feilkode tilsier at det ikke ble funnet noen bruker
                 if (response.status === 404) {
                     window.location.replace('signup.html'); // Hvis koden er forkert bliver man sat hen til signup
-                    alert("Ingen bruker funnet under det brukernavnet, vennligst registrer deg først");
+                    alert("No user with that name, please register first");
                 }
                 throw new Error(`Network response was not ok: ${response.statusText}`);
             }

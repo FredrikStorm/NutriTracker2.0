@@ -72,7 +72,7 @@ function calculateMetabolism() {
     }
     // Konverterer stofskifte til kcal
     const metabolismKcal = metabolismRate * 239; // Konverter MJ til kcal
-    document.getElementById('result').textContent = `Estimeret stofskifte: ${metabolismKcal.toFixed(2)} kalorier per dag`;
+    document.getElementById('result').textContent = `Estimated metabolism: ${metabolismKcal.toFixed(2)} calories per day`;
 
     // Poster stofskifte til serveren
     fetch('http://localhost:3000/activity/user/metabolism', {
@@ -122,7 +122,7 @@ document.getElementById('activityForm').addEventListener('submit', async functio
         if (data && data.kcal && data.activityname) {
             const kcalPerHour = data.kcal;
             const totalKcalBurned = kcalPerHour * hours;
-            document.getElementById('result2').textContent = `Totalt antal forbrændte kalorier: ${totalKcalBurned.toFixed(2)}`;
+            document.getElementById('result2').textContent = `Total burned calories: ${totalKcalBurned.toFixed(2)}`;
 
             // Sender resultater sammen med brugerID til serveren for at gemme det
             const postResponse = await fetch('http://localhost:3000/activity/user/Activities', {
@@ -148,6 +148,7 @@ document.getElementById('activityForm').addEventListener('submit', async functio
             document.getElementById('result2').textContent = "Ingen data fundet for valgte aktivitet.";
         }
     } catch (error) {
+        
         document.getElementById('result2').textContent = "Fejl: " + error.message;
     }
 });
