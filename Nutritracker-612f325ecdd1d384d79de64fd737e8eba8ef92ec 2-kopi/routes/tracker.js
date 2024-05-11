@@ -5,6 +5,7 @@ const {  fetchRecipeNutrition, createMeal, fetchMeals, updateMeal, deleteMealCon
 const router = express.Router();
 
 //Meal tracker
+//Alle vores routes til vores meal tracker
 router.get('/user/recipe/:recipeId', fetchRecipeNutrition);
 
 router.post('/user/meal', createMeal);

@@ -17,8 +17,8 @@ async function saveNewUser() {
         // Kontrollerer om der allerede findes en bruger med samme mail
         const emailSearchResponse = await fetch(`http://localhost:3000/api/user/profile?email=${email}`);
         if (emailSearchResponse.ok) {
-            // Hvis brugeren allerede findes bliver kommer denne besked op og man får vide man skal lave en bruger
-            alert("Finnes allerede en bruker under dette brukernavnet, vennligst logg inn med din eksisterende bruker");
+            // Hvis brugeren allerede findes bliver kommer denne besked op og man får at vide man skal lave en bruger
+            alert("There is already a user with this login, please register first");
             window.location.replace('login.html');
             return;
         } else if (emailSearchResponse.status === 404) {
@@ -41,7 +41,7 @@ async function saveNewUser() {
             const userID = userData.userID.userID;
             localStorage.setItem(callsign, JSON.stringify(userID));
             // Omdirigerer brugeren til profilside efter oprettelse
-            window.location.replace('profil.html');
+            window.location.replace('frontPage.html');
 
         } else {
             throw new Error(`Unexpected error: ${emailSearchResponse.statusText}`);
