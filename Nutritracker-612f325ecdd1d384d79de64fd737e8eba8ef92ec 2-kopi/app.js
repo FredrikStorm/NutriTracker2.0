@@ -27,7 +27,7 @@ app.use(express.json()); // Middleware til at parse JSON-formaterede forespørgs
 app.use(express.urlencoded({ extended: true })); // Middleware til at parse URL-encoded bodies (vigtigt for POST og PUT requests)
 
 app.use('/api', userRoutes); // Brugerruter under '/api' sti
-app.use('/activity', activityRoutes); // Brugerruter under '/api' sti
+app.use('/activity', activityRoutes); // Brugerruter under 
 app.use('/daily', dailyRoutes);
 app.use('/creator', creatorRoutes);
 app.use('/tracker', trackerRoutes);

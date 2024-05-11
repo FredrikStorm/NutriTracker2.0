@@ -1,4 +1,5 @@
 async function saveNewUser() {
+   
     try {
         // Henter brugeroplysninger fra formularfelter
         const firstname = document.getElementById('firstname').value;
