@@ -61,7 +61,7 @@ const deleteUserProfile = async (userID) => {
     let sqlRequest = new sql.Request(pool);
 
     sqlRequest.input('userID', sql.Int, userID);
-    // Assuming cascade deletes or handling related data elsewhere in your app
+    
     await sqlRequest.query(`DELETE FROM [user].Activities WHERE userId = @userID;`);
     await sqlRequest.query(`DELETE FROM [user].meal WHERE userID = @userID;`);
     await sqlRequest.query(`DELETE FROM [user].metabolism WHERE userId = @userID;`);
