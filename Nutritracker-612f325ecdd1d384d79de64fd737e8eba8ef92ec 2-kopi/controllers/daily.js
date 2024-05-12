@@ -13,12 +13,13 @@ const seeEnergi = async (req, res) => {
         const metabolismPerHour = viewType === 'monthly' ? metabolismRate : metabolismRate / 24;
 
         const responseData = Array.from({ length: viewType === 'monthly' ? 31 : 24 }, (_, i) => {
+            const dayIndex = i + 1; // Adjust index for display (1-31 or 1-24)
             return {
-                timeGroup: i,
-                totalKcal: mealsResult.recordset.filter(r => r.TimeGroup === i).reduce((acc, curr) => acc + curr.TotalKcal, 0),
-                waterIntake: waterResult.recordset.filter(r => r.TimeGroup === i).reduce((acc, curr) => acc + curr.WaterIntake, 0),
+                timeGroup: dayIndex, // Changed to display 1-31 or 1-24
+                totalKcal: mealsResult.recordset.filter(r => r.TimeGroup === dayIndex).reduce((acc, curr) => acc + curr.TotalKcal, 0),
+                waterIntake: waterResult.recordset.filter(r => r.TimeGroup === dayIndex).reduce((acc, curr) => acc + curr.WaterIntake, 0),
                 hourlyBurn: metabolismPerHour,
-                totalActivityKcal: activitiesResult.recordset.filter(r => r.TimeGroup === i).reduce((acc, curr) => acc + curr.TotalActivityKcal, 0)
+                totalActivityKcal: activitiesResult.recordset.filter(r => r.TimeGroup === dayIndex).reduce((acc, curr) => acc + curr.TotalActivityKcal, 0)
             };
         });
 
