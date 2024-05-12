@@ -63,37 +63,6 @@ function addIngredientToRecipe(item) { // håndterer tillegging av ingrediens ti
         fetchNutritionInfo(item.FoodID, amountInput, item.FoodName); // henter næringsinfo basert på ingrediensID og vekt 
     }
 }
-/*
-function fetchNutritionInfo(foodID, amount, foodName) { // henter næringsinfo for hver ingrediens som blir valgt til oppskriften basert på vekt 
-    const nutrientIDs = {  // ID'er for de ulike næringsstoffer 
-        calories: 356,
-        fiber: 168,
-        protein: 218,
-        fat: 141
-    };
-      // lager URL for å hente næringsinfo 
-    const urls = Object.keys(nutrientIDs).map(key => `http://localhost:3000/creator/foodbank/foodParameter?foodID=${foodID}&parameterID=${nutrientIDs[key]}`);
-
-    Promise.all(urls.map(url => fetch(url).then(res => res.json())))
-        .then(results => {
-            const nutrients = {  // lagrer næringsinformasjonen man får 
-                calories: results[0].ResVal,
-                fiber: results[1].ResVal,
-                protein: results[2].ResVal,
-                fat: results[3].ResVal
-            };
-            const nutrientValues = {   // kalkulerer næringsveridene basert på vekten 
-                calories: (nutrients.calories / 100) * amount,
-                fiber: (nutrients.fiber / 100) * amount,
-                protein: (nutrients.protein / 100) * amount,
-                fat: (nutrients.fat / 100) * amount
-            };
-            addToRecipeList(foodName, amount, nutrientValues);
-            addToRecipeSummary(); // Oppdaterer oppskriftssammendraget for inkludere de nye ingrediensene 
-        })
-        .catch(error => console.error('Error fetching nutritional information:', error));
-}
-*/
 
 function fetchNutritionInfo(foodID, amount, foodName) { // Henter næringsinfo for hver ingrediens basert på vekt
     const nutrientIDs = {  // ID'er for de ulike næringsstoffer
