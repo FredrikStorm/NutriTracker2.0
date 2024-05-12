@@ -63,7 +63,7 @@ function addIngredientToRecipe(item) { // håndterer tillegging av ingrediens ti
         fetchNutritionInfo(item.FoodID, amountInput, item.FoodName); // henter næringsinfo basert på ingrediensID og vekt 
     }
 }
-
+/*
 function fetchNutritionInfo(foodID, amount, foodName) { // henter næringsinfo for hver ingrediens som blir valgt til oppskriften basert på vekt 
     const nutrientIDs = {  // ID'er for de ulike næringsstoffer 
         calories: 356,
@@ -90,6 +90,55 @@ function fetchNutritionInfo(foodID, amount, foodName) { // henter næringsinfo f
             };
             addToRecipeList(foodName, amount, nutrientValues);
             addToRecipeSummary(); // Oppdaterer oppskriftssammendraget for inkludere de nye ingrediensene 
+        })
+        .catch(error => console.error('Error fetching nutritional information:', error));
+}
+*/
+
+function fetchNutritionInfo(foodID, amount, foodName) { // Henter næringsinfo for hver ingrediens basert på vekt
+    const nutrientIDs = {  // ID'er for de ulike næringsstoffer
+        calories: 356,
+        fiber: 168,
+        protein: 218,
+        fat: 141
+    };
+
+    // Lager URL for å hente næringsinfo
+    const urls = Object.keys(nutrientIDs).map(key => `http://localhost:3000/creator/foodbank/foodParameter?foodID=${foodID}&parameterID=${nutrientIDs[key]}`);
+
+    Promise.all(urls.map(url => fetch(url).then(res => res.json())))
+        .then(results => {
+            const nutrients = {  // Lagrer næringsinformasjonen man får
+                calories: results[0].ResVal,
+                fiber: results[1].ResVal,
+                protein: results[2].ResVal,
+                fat: results[3].ResVal
+            };
+            
+            
+            // Sjekk for manglende nøkler i nutrients-objektet og gyldigheten av 'amount'
+            if (!nutrients || typeof nutrients.calories !== 'number' || typeof nutrients.fiber !== 'number' || typeof nutrients.protein !== 'number' || typeof nutrients.fat !== 'number') {
+                throw new Error('Invalid or missing nutrient values');
+            }
+            
+
+            amount = Number(amount);  // Konverterer amount til et tall
+
+            if (isNaN(amount) || amount < 0) {
+                throw new Error('Amount must be a positive number');
+            }
+            
+
+            // Kalkulerer næringsverdiene basert på vekten, og avrunder til nærmeste heltall
+            const nutrientValues = {
+                calories: Math.round((nutrients.calories / 100) * amount),
+                fiber: Math.round((nutrients.fiber / 100) * amount),
+                protein: Math.round((nutrients.protein / 100) * amount),
+                fat: Math.round((nutrients.fat / 100) * amount)
+            };
+
+            addToRecipeList(foodName, amount, nutrientValues);
+            addToRecipeSummary(); // Oppdaterer oppskriftssammendraget for å inkludere de nye ingrediensene
         })
         .catch(error => console.error('Error fetching nutritional information:', error));
 }
